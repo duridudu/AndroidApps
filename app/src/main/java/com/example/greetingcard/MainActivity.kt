@@ -24,9 +24,22 @@ import androidx.compose.ui.unit.sp
 import com.example.greetingcard.ui.theme.GreetingCardTheme
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Email
+import androidx.compose.material.icons.rounded.Phone
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.blur
+import androidx.compose.ui.graphics.Color.Companion.Green
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,10 +49,9 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = Color(0xFF073042)
                 ) {
-                    GreetingImage(stringResource(R.string.happy_birthday_text),
-                        stringResource(R.string.signature_text))
+                    GreetingText()
                 }
             }
         }
@@ -47,51 +59,81 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun GreetingImage( message: String, from : String,modifier : Modifier = Modifier){
-    val image = painterResource(id = R.drawable.androidparty)
+fun GreetingImage(modifier: Modifier){
+    val image = painterResource(id = R.drawable.android_logo)
     Box{
         Image(
+            modifier = modifier,
             painter = image,
             contentDescription = null,
-            contentScale = ContentScale.Crop,
-            alpha = 0.5F
+
+       //     contentScale = ContentScale.Crop
             )
-        GreetingText(from = from, message = message, modifier = Modifier
-            .fillMaxSize()
-            .padding(8.dp))
+//        GreetingText(from = from, message = message, modifier = Modifier
+//            .fillMaxSize()
+//            .padding(8.dp))
     }
+}
+
+@Composable
+fun GreetingText() {
+    Column (
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+      ) {
+
+        GreetingImage(modifier= Modifier
+            .fillMaxWidth(0.3f))
+
+        Text(
+            text = stringResource(R.string.my_name),
+            fontSize = 50.sp,
+            color = Color.White
+        )
+        Text(
+            text = stringResource(R.string.my_job),
+            fontSize = 25.sp,
+            color = Green
+        )
+        Spacer(modifier = Modifier.padding(bottom = 200.dp))
+        Divider(modifier = Modifier.fillMaxWidth(), color = Color(0xFF4F6C79))
+
+        ContactText(
+            text = stringResource(R.string.my_number),  textBlur = 5.dp,
+            icon = Icons.Rounded.Phone)
+        Divider(modifier = Modifier.fillMaxWidth(), color = Color(0xFF4F6C79))
+        ContactText(
+            text = stringResource(R.string.my_email), icon = Icons.Rounded.Email)
+       }
+
 
 }
 
 @Composable
-fun GreetingText(from:String, message : String, modifier : Modifier = Modifier) {
-    Column(modifier = modifier,
-        verticalArrangement = Arrangement.Center) {
-         Text(                            
-             text = message,              
-             fontSize = 100.sp,           
-             lineHeight = 116.sp  ,
-             textAlign = TextAlign.Center
-         )
-        Text(                  
-            text = from,
-            fontSize = 36.sp,
-            modifier = Modifier
-                .padding(16.dp)
-                .align(alignment = Alignment.End)
-          )
-
-       
-       
-       
-       
+fun ContactText(text: String, icon: ImageVector, textBlur: Dp = 0.dp){
+    Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.padding(16.dp)){
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = Green,
+            modifier = Modifier.weight(1f)
+        )
+        Text(
+            text = text,
+            color = Color.White,
+            modifier = Modifier.weight(3f).blur(textBlur)
+        )
     }
 }
-
 @Preview(showBackground = true)
 @Composable
 fun BirthdayCardPreview() {
     GreetingCardTheme {
-        GreetingImage(message = "Happy birthday sam!", from = "From Emma")
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = Color(0xFF073042)
+        ) {
+            GreetingText()
+        }
     }
 }

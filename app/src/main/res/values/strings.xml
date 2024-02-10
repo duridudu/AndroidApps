@@ -2,4 +2,8 @@
     <string name="app_name">GreetingCard</string>
     <string name="happy_birthday_text">Happy birthday sam!</string>
     <string name="signature_text">From Emma</string>
+    <string name="my_name">Yunju Lee</string>
+    <string name="my_job">Android Development</string>
+    <string name="my_number">010-2319-9330</string>
+    <string name="my_email">yunju_lee@kbfg.com</string>
 </resources>
