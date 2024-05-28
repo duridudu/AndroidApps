@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+</head>
+<body>
+<p>
+    로딩이 완료된 웹뷰 입니다.
+</p>
+<input type="button" value="웹뷰->앱" onClick="showAndroidToast('html에서 설정한 String이오.')"/>
+<input type="button" value="앱->웹뷰" onClick="showJson()"/>
+
+<div id="jsonDisplay">
+    <h2>Received JSON Data:</h2>
+    <pre id="jsonData"></pre>
+</div>
+<script type="text/javascript">
+    function showAndroidToast(toast) {
+        TestApi.showToast(toast);
+    }
+
+</script>
+
+<script type="text/javascript">
+        // 안드로이드에서 받은 JSON 데이터 표시
+        function displayJsonData(jsonData) {
+            var jsonDisplayDiv = document.getElementById('jsonData');
+            jsonDisplayDiv.innerText = JSON.stringify(jsonData, null, 2);
+        }
+    </script>
+
+<script>
+    function showJson(){
+        // 안드로이드로부터 JSON 데이터 받기
+        var receivedJsonData = JSON.parse(TestApi.getJsonData());
+        displayJsonData(receivedJsonData);
+       }
+</script>
+</body>
+</html>
