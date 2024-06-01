@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "GreetingCard"
 include(":app")
+include(":ch15_messenger")
