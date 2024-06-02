@@ -19,7 +19,7 @@ class MyAIDLService : Service() {
         player.release()
     }
     override fun onBind(intent: Intent): IBinder {
-        return object: MyAIDLInterface.Stub() {
+        return object: IMyAidlInterface.Stub() {
             override fun getMaxDuration(): Int {
                 return if(player.isPlaying)
                     player.duration

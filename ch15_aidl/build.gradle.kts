@@ -1,18 +1,18 @@
 plugins {
-    id("com.android.library")
+    id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
 
 android {
-    namespace = "com.example.ch15_outer"
+    namespace = "com.example.ch15_aidl"
     compileSdk = 34
 
     defaultConfig {
-       //applicationId = "com.example.ch15_outer"
+        applicationId = "com.example.ch15_aidl"
         minSdk = 24
         targetSdk = 34
-        //versionCode = 1
-       //versionName = "1.0"
+        versionCode = 1
+        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -34,8 +34,7 @@ android {
         jvmTarget = "1.8"
     }
 
-    buildFeatures {
-        viewBinding = true
+    buildFeatures{
         aidl = true
     }
 }

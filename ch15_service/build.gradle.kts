@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.example.ch15_service"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.ch15_service"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -36,7 +36,10 @@ android {
 
     buildFeatures{
         viewBinding = true
+        aidl = true
     }
+
+    buildToolsVersion = "33.0.1"
 }
 
 dependencies {
@@ -45,7 +48,11 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    implementation(project(mapOf("path" to ":ch15_outer")))
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+
 }

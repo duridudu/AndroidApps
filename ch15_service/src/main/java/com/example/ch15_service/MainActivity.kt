@@ -14,7 +14,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.example.ch15_outer.MyAIDLInterface
+import com.example.ch15_outer.IMyAidlInterface
 import com.example.ch15_service.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
 
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     var messengerJob: Job? = null;
 
     //aidl...........
-    var aidlService: MyAIDLInterface? = null
+    var aidlService: IMyAidlInterface? = null
     var aidlJob: Job? = null
 
 
@@ -158,10 +158,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
+    // 메신저
     private fun onCreateMessengerService() {
         replyMessenger = Messenger(HandlerReplyMsg())
         binding.messengerPlay.setOnClickListener {
+            Log.d("^^TEST^^", "MESSENGER CLICK")
             val intent = Intent("ACTION_SERVICE_Messenger")
             intent.setPackage("com.example.ch15_outer")
             bindService(intent, messengerConnection, Context.BIND_AUTO_CREATE)
@@ -186,7 +187,7 @@ class MainActivity : AppCompatActivity() {
     //aidl connection .......................
     val aidlConnection: ServiceConnection = object: ServiceConnection {
         override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
-            aidlService = MyAIDLInterface.Stub.asInterface(p1)
+            aidlService = IMyAidlInterface.Stub.asInterface(p1)
             aidlService!!.start()
             binding.aidlProgress.max = aidlService!!.maxDuration
             val backgroundScope = CoroutineScope(Dispatchers.Default + Job())
@@ -205,6 +206,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // AIDL
     private fun onCreateAIDLService() {
         binding.aidlPlay.setOnClickListener {
             val intent = Intent("ACTION_SERVICE_AIDL")
